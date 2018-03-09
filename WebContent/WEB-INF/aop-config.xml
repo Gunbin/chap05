@@ -35,4 +35,33 @@
 	</bean>
 	<bean id="gson" factory-method="create" factory-bean="gsonBuilder" />
 
+	<!-- 마이바티스연동 -->
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url" value="jdbc:oracle:thin:@192.168.10.80:1521:xe" />
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>oracle</value>
+		</property>
+	</bean>
+
+	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mappers/member-mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory">
+			<ref bean="factory" />
+		</constructor-arg>
+	</bean>
 </beans>
