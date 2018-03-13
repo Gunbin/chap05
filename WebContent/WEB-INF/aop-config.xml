@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -13,6 +15,15 @@
 
 	<context:component-scan base-package="total.controller" />
 	<context:component-scan base-package="total.service" />
+
+	<!-- WebSocket Handle setting -->
+	<websocket:handlers>
+		<websocket:mapping handler="WSController" path="/handle" />
+	</websocket:handlers>
+	<!-- handler은 ref로 등록, path는 @RequestMapping과 같은 역할 -->
+
+	<!-- view resolver setting -->
+
 
 	<!-- 포워딩 경로 자동 앞뒤 설정 -->
 	<bean
@@ -63,5 +74,19 @@
 		<constructor-arg name="sqlSessionFactory">
 			<ref bean="factory" />
 		</constructor-arg>
+	</bean>
+
+	<!-- 메일 센더 -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		id="mailSender">
+		<property name="host" value="smtp.gmail.com"></property> <!-- ip대신 -->
+		<property name="username" value="ncs13master@gmail.com"></property> <!-- 구글계정 -->
+		<property name="password" value="1q2w3e4r~"></property> <!-- 구글계정 비밀번호 -->
+		<property name="port" value="587"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
 	</bean>
 </beans>

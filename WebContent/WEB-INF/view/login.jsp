@@ -11,17 +11,21 @@
 	<div align="center">
 		<div style="width: 80%;">
 			<h3>SIGN IN</h3>
-
+			<c:if test="${msg!=null }">
+				<small><font color="red">${msg }</font></small>
+				<br />
+				<br />
+			</c:if>
 			<form action="/login" method="post">
 				<table>
 					<tr align="left">
-						<th>ID</th>
+						<th>Id or Email</th>
 					</tr>
 					<tr align="left">
 						<td><input type="text" name="id" value="${id }" /></td>
 					</tr>
 					<tr align="left">
-						<th>PASS</th>
+						<th>Password</th>
 					<tr align="left">
 						<td><input type="password" name="pass" /></td>
 					</tr>
