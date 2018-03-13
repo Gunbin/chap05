@@ -16,6 +16,15 @@
 	<context:component-scan base-package="total.controller" />
 	<context:component-scan base-package="total.service" />
 
+	<!-- webSocket setting -->
+	<websocket:handlers>
+		<websocket:mapping handler="ac" path="/alert" />
+		<websocket:handshake-interceptors>
+			<bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
 	<!-- WebSocket Handle setting -->
 	<websocket:handlers>
 		<websocket:mapping handler="WSController" path="/handle" />

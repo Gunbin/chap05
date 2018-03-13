@@ -23,6 +23,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="alert alert-warning" style="display: none;">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Warning!</strong> Please refresh
+	</div>
+
 	<div align="center">
 		<div style="width: 80%;">
 			<h2>SPRING PROJECT</h2>
@@ -72,6 +77,7 @@
 	</div>
 	<script>
 		var ws = new WebSocket("ws://${pageContext.request.serverName}/handle");
+		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
 
 		// 연결이 됬을때
 		ws.onopen = function() {
@@ -90,6 +96,11 @@
 		// 연결이 끊길 때 ( 서버가 꺼질 때 )
 		ws.onclose = function() {
 			window.alert("연결이 해제되었습니다.");
+		}
+
+		ws2.onmessage = function(rst) {
+			console.log(rst);
+			var obj = JSON.parse(rst);
 		}
 	</script>
 </body>
