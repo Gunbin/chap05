@@ -16,6 +16,9 @@
 	<context:component-scan base-package="total.controller" />
 	<context:component-scan base-package="total.service" />
 
+	<!-- 세션관리맵 -->
+	<bean id="sessions" class="total.service.WebSocketMap" />
+
 	<!-- webSocket setting -->
 	<websocket:handlers>
 		<websocket:mapping handler="ac" path="/alert" />
@@ -98,4 +101,5 @@
 			</props>
 		</property>
 	</bean>
+
 </beans>
