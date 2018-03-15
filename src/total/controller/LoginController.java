@@ -42,12 +42,12 @@ public class LoginController {
 			return "login";
 		} else if (r == 1) {
 			// 로그인 성공
-			session.setAttribute("login", map.get("id"));
+			session.setAttribute("login", loginService.loginId(map));
 			List<WebSocketSession> list = sessions.get(session.getId());
 			for (WebSocketSession ws : list) {
 				ws.sendMessage(new TextMessage("login"));
 			}
-			return "redirect:index";
+			return "redirect:index?login=true";
 		} else {
 			// 비밀번호 불일치
 			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");

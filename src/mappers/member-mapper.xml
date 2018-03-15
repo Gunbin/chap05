@@ -9,4 +9,8 @@
 		select * from member where
 		(id=#{id} or email=#{id})
 	</select>
+	<select id="selectAll" resultType="hashmap">
+		select * from member left join
+		friend on member.id = friend.other
+	</select>
 </mapper>

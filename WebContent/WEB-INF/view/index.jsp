@@ -33,26 +33,41 @@
 			<div>
 				<b>${ment }</b>
 			</div>
-			<div>
+			<!-- <div>
 				<div class="alert alert-info">
 					<b>현재접속자수 : </b><span id="cnt"></span> / <strong>서버알림 - </strong><span
 						id="info"></span>
 				</div>
-			</div>
+			</div> -->
 			<hr />
-			<div align="right">
+			<div align="right" class="alert alert-info">
 				<c:choose>
 					<c:when test="${login == null}">
 						<!-- 로그아웃 상태 -->
-						<a href="/login" style="text-decoration: none;"><b>Sign In</b>
-						</a>
-				| <a href="/join" style="text-decoration: none;"><b>Sign Up</b></a>
+						<table style="width: 100%">
+							<tr>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td align="center"><b>현재접속자수 : </b> <span id="cnt"></span>
+									/ <strong>서버알림 - </strong> <span id="info"></span> </span></td>
+								<td align="right"><a href="/login"
+									style="text-decoration: none;"><b>Sign In</b> </a> | <a
+									href="/join" style="text-decoration: none;"><b>Sign Up</b></a>
+								</td>
+							</tr>
+						</table>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인상태 -->
 						<table style="width: 100%;">
 							<tr>
-								<td align="left"><a>바보</a></td>
+								<td align="left" style="width: 18%;">'<b>${login }</b>' <a
+									href="/requestList"> [ 친구신청 알림 ( ${sessionScope.fllowNum} )
+										]</a>
+								</td>
+								<td align="center"><b>현재접속자수 : </b><span id="cnt"></span> /
+									<strong>서버알림 - </strong><span id="info"></span></td>
 								<td align="right"><a href="/out"
 									style="text-decoration: none;"><b>Sign Out</b></a></td>
 							</tr>
@@ -60,20 +75,29 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<hr />
 			<c:if test="${login!=null }">
 				<nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <!-- Brand/logo -->
 				<a class="navbar-brand" href="">Home</a> <!-- Links -->
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="/create">▶
 							ChattingRoom</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link 2</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
+					<li class="nav-item"><a class="nav-link" href="/userList">▶
+							UserSearch</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">▶ Friend</a></li>
 				</ul>
 				</nav>
 			</c:if>
 		</div>
 	</div>
+
+	<!-- 소켓 연결후 소켓컨트롤러에서  컨트롤러로 소켓보내주고 HttpSession에아이디별로 소켓을 등록  -->
+	<c:if test="${logon == 'true' }">
+		<script>
+			var ws3 = new WebSocket(
+					"ws://${pageContext.request.serverName}/???");
+		</script>
+	</c:if>
+
 	<script>
 		var ws = new WebSocket("ws://${pageContext.request.serverName}/handle");
 

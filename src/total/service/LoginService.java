@@ -25,4 +25,9 @@ public class LoginService {
 			return 2;
 		}
 	}
+
+	public String loginId(Map map) {
+		Map m = template.selectOne("member.selectOne", map);
+		return (String) m.get("ID");
+	}
 }

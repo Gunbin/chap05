@@ -35,7 +35,14 @@
 	<!-- handler은 ref로 등록, path는 @RequestMapping과 같은 역할 -->
 
 	<!-- view resolver setting -->
-
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"></bean>
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<array>
+				<value>/WEB-INF/tiles/*-tiles.xml</value>
+			</array>
+		</property>
+	</bean>
 
 	<!-- 포워딩 경로 자동 앞뒤 설정 -->
 	<bean
@@ -78,6 +85,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:mappers/member-mapper.xml</value>
+				<value>classpath:mappers/friend-mapper.xml</value>
 			</list>
 		</property>
 	</bean>
